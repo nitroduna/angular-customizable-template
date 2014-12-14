@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>Customizable Template Demo</title>
+
+  <link rel="stylesheet" href="ext/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="ext/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="app.css">
+
+  <script src="ext/angular/angular.js"></script>
+
+  <script src="../src/customizable-template.js"></script>
+  <script src="app.js"></script>
+  <script src="directives/product-list.js"></script>
+
+</head>
+
+<body ng-controller="AppController as app">
+
+  <div class="main clearfix">
+
+    <div class="products pull-left">
+      <!--
+        The "header" and "footer" attributes can be used to customize some parts
+        of the "product-list" directive, but only text can be used. We cannot
+        customize those parts of the directive using a custom HTML template.
+      -->
+      <product-list products="app.cams" header="Cam Devices" footer="The most popular: {{app.cams[3].name}}">
+      </product-list>
+    </div>
+
+    <div class="products pull-right">
+      <!--
+        But the "product-list" directive includes two customizable parts identified by "header"
+        and "footer". We can customize those parts of the directive using the "ct-template-part"
+        with the appropriate part id. Now we can customize those parts of the directive using
+        the complete HTML defined inside the "ct-template-part".
+      -->
+      <product-list products="app.ropes">
+
+        <!-- The template HTML that customize the "header" part of the "product-list" directive -->
+        <div ct-template-part="header">
+          <p class="panel-title"><strong>Ropes</strong>&nbsp;<span class="label label-info">New</span></p>
+        </div>
+
+        <!-- The template HTML that customize the "footer" part of the "product-list" directive -->
+        <div ct-template-part="footer">
+          <p class="panel-title"><strong>This is a template that customize the footer</strong></p>
+          <ul>
+            <li>You can change the whole HTML of the footer.</li>
+            <li>You can access the scope where this custom footer is defined.</li>
+            <li><strong>The most popular rope: </strong><i>{{app.ropes[2].name}}</i></app.ropes></li>
+          </ul>
+        </div>
+
+      </product-list>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
+
+

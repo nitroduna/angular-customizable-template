@@ -1,0 +1,66 @@
+<!--
+   The "ct-compound-template" directive allows this template to define
+   several insertion points using "ct-template-placeholder" that allows
+   clients to customize some parts of the template using HTML.
+-->
+<div ct-compound-template class="panel panel-default">
+
+  <div class="panel-heading">
+    <!--
+       The "ct-template-placeholder" mark an insertion point. If the client of "product-list"
+       directive defines a "ct-template-part" with the id "header" the header will be changed
+       by the full HTML template defined by the client.
+    -->
+    <div ct-template-placeholder="header">
+      <!--
+        If the client does not uses the "ct-template-part" only the {{header}} text can be
+        customized using the "header" attribute
+      -->
+      <h1 class="panel-title text-center">{{header}}&nbsp;<small>This is the default header.</small></h1>
+    </div>
+
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Reviews</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in products">
+        <td>{{product.name}}</td>
+        <td>{{product.reviews}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="panel-footer">
+    <!--
+       The "ct-template-placeholder" mark an insertion point. If the client of "product-list"
+       directive defines a "ct-template-part" with the id "footer" the footer will be changed
+       by the full HTML template defined by the client.
+    -->
+    <div ct-template-placeholder="footer">
+      <!--
+        If the client does not uses the "ct-template-part" only the {{footer}} text can be
+        customized using the "footer" attribute
+      -->
+      <h2 class="panel-title text-center">{{footer}}&nbsp;<small>This is the default footer.</small></h2>
+    </div>
+
+  </div>
+
+  <!--
+     The directive is forced to use "transclusion" and the template must declare
+     a "ng-transclude" directive to allow the clientes to define customization parts
+     inside the "product-list" directive. The "ng-transclude" directive is not showed
+     because this directive can only contains the customizable parts.
+
+     TODO: Think of a system that allows to use "ct-template-part" directive
+           in directives that do not need "transclusion".
+  -->
+  <ng-transclude ng-show="false"></ng-transclude>
+
+</div>
